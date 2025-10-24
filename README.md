@@ -1,6 +1,6 @@
 <h1>ExpNo 5 : Implement Simple Hill Climbing Algorithm</h1> 
-<h3>Name:             </h3>
-<h3>Register Number:             </h3>
+<h3>Name: Yazhini            </h3>
+<h3>Register Number: 2305002028            </h3>
 <H3>Aim:</H3>
 <p>Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration </p>
 <h2> Theory: </h2>
@@ -39,62 +39,37 @@ Feedback is provided in terms of heuristic function
 <p> Lopp Step -2 and Step-3  until we achieve the score to be Zero to achieve Global Minima.</p>
 
 ## PROGRAM
-```python
-import random
-import string
-def generate_random_solution(answer):
-    l=len(answer)
-    return [random.choice(string.printable) for _ in range(l)]
-def evaluate(solution,answer):
-    print(solution)
-    target=list(answer)
-    diff=0
-    for i in range(len(target)):
-        s=solution[i]
-        t=target[i]
-        #to calculate the "difference" between two strings, character by character.
-        #ord(s) - ord(t) calculates the difference between the ASCII values of the characters s and t.
-         #abs() takes the absolute value of this difference to ensure that it is non-negative. This is important because the difference could be negative if s is less than t in terms of ASCII value.
-         #The absolute value ensures that the difference is always positive or zero.
-        diff += abs(ord(s) - ord(t))    return diff
-def mutate_solution(solution):
-    ind=random.randint(0,len(solution)-1)
-    solution[ind]=random.choice(string.printable)
-    return solution
-def SimpleHillClimbing():
-    answer="Artificial Intelligence"
-    best=generate_random_solution(answer)
-    best_score=evaluate(best,answer)
-    while True:
-       print("Score:", best_score, " Solution: ", "".join(best))  
-       if best_score == 0:
-           break
-       new_solution = mutate_solution(list(best))
-       score = evaluate(new_solution, answer)
-       if score < best_score:
-           best = new_solution
-           best_score = score
-SimpleHillClimbing()
+```
+    import random, string
+
+def hill_climb():
+    target = input("Enter the target string: ")
+    sol = [random.choice(string.printable) for _ in target]
+    score = lambda s: sum(abs(ord(a) - ord(b)) for a, b in zip(s, target))
+    best, best_score = sol, score(sol)
+
+    while best_score:
+        print(best_score, "".join(best))
+        new = best.copy()
+        new[random.randrange(len(new))] = random.choice(string.printable)
+        new_score = score(new)
+        if new_score < best_score:
+            best, best_score = new, new_score
+
+    print("Final:", "".join(best))
+
+hill_climb()
+
 ```
 
 <hr>
 <h2>Sample Input and Output</h2>
-<h2>Sample String:</h2> Artificial Intelligence
+<h2>Sample String: MOM </h2> 
 <h2>Output:</h2>
-Score: 643  Solution :  8RzF:oG ]%;CPORRMe!zGvk<br>
-Score: 609  Solution :  8RzF:oG ]%;CPqRRMe!zGvk<br>
-Score: 604  Solution :  8RzF:oG ]%;CPqRRMe!zGqk<br>
-Score: 594  Solution :  8RzF:oG ]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-....................................................<br>
-..................................................<br>
-................................................<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 0  Solution :  Artificial Intelligence<br>
+
+<img width="157" height="432" alt="Screenshot 2025-10-24 140940" src="https://github.com/user-attachments/assets/07217375-214f-486a-aafd-0fd089e11ee5" />
+
+<img width="146" height="381" alt="Screenshot 2025-10-24 141012" src="https://github.com/user-attachments/assets/3a4e1106-c5c3-4730-9c3c-b37aa4bf64d6" />
+
+<img width="170" height="333" alt="image" src="https://github.com/user-attachments/assets/bb60a4b3-07cd-46be-8f25-26957918159a" />
+
